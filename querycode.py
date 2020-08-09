@@ -17,14 +17,14 @@ def retrieve():
     response = requests.get("https://redisq.zkillboard.com/listen.php?queueID=DataGod9674429039")
     data = response.json()
     data_killmail = data['package']
-
-    if data_killmail == None:
-        time.sleep(10)
+    return data_killmail
+    #if data_killmail == None:
+        #time.sleep(10)
         #print("null object")
-        return data_killmail
-    else:
-        print("Killmail Found")
-        return data_killmail
+        #return data_killmail
+    #else:
+        #print("Killmail Found")
+        #return data_killmail
 
 def sql_update(query, data):
     cnx = mysql.connector.connect(user='admin', database='Zkill', host='database-2.cywxzrwutyd7.us-west-1.rds.amazonaws.com', password='harlan1j')
@@ -163,6 +163,7 @@ def sql_connect():
         }
 
         cursor.execute(zkb_insert_query, zkb_data)
+
         # Make sure data is committed to the database
         cnx.commit()
 
