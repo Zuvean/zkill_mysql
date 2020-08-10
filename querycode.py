@@ -61,7 +61,7 @@ def sql_connect():
         killmail_ID = data['killID']
         data_killmail = data['killmail']
 
-        frame_insert_query = ("INSERT INTO Frame "
+        frame_insert_query = ("INSERT IGNORE INTO Frame "
                             "(killID, SolarSystemID, DateTime, MoonID, WarID) "
                             "VALUES (%(killID)s, %(SolarSystemID)s, %(DateandTime)s, %(MoonID)s, %(WarID)s)")
 
@@ -125,7 +125,7 @@ def sql_connect():
 
         #cursor.executemany(items_insert_query, items_lst)
 
-        victims_insert_query = ("INSERT INTO Victims "
+        victims_insert_query = ("INSERT IGNORE INTO Victims "
                             "(killID, AllianceID, CorporationID, CharacterID, damage_taken, xPos, yPos, zPos, ShipTypeID) "
                             "VALUES (%(killID)s, %(AllianceID)s, %(CorporationID)s, %(CharacterID)s, %(damage_taken)s, %(xPos)s, %(yPos)s, %(zPos)s, %(ShipTypeID)s)")
         
@@ -144,7 +144,7 @@ def sql_connect():
 
         cursor.execute(victims_insert_query, victims_data)
 
-        zkb_insert_query = ("INSERT INTO zkb "
+        zkb_insert_query = ("INSERT IGNORE INTO zkb "
                             "(killID, locationID, hash, fittedValue, totalValue, points, npc, solo, awox, href) "
                             "VALUES (%(killID)s,%(locationID)s, %(hash)s, %(fittedValue)s, %(totalValue)s, %(points)s, %(npc)s, %(solo)s, %(awox)s, %(href)s)")
         
