@@ -13,7 +13,7 @@ class KillMail:
         self.package = package
 
 def retrieve():
-    
+    data_killmail = {}
     response = requests.get("https://redisq.zkillboard.com/listen.php?queueID=DataGod9674429039")
     data = response.json()
     data_killmail = data['package']
@@ -36,10 +36,10 @@ def sql_update(query, data):
 
 def bit_convert(string):
     if string == 'false':
-        return '0'
+        return 0
     
     elif string == 'true':
-        return '1'
+        return 1
     
     else:
         #print("Not a boolean")
@@ -76,6 +76,8 @@ def sql_connect():
             'MoonID' : data_killmail.get('moon_id'),
             'WarID' : data_killmail.get('war_id'),
         }
+
+        pprint.pprint(frame_data)
 
         cursor.execute(frame_insert_query, frame_data)
 
@@ -121,7 +123,7 @@ def sql_connect():
             }
             items_lst.append(copy.deepcopy(items_temp))
 
-        cursor.executemany(items_insert_query, items_lst)
+        #cursor.executemany(items_insert_query, items_lst)
 
         victims_insert_query = ("INSERT INTO Victims "
                             "(killID, AllianceID, CorporationID, CharacterID, damage_taken, xPos, yPos, zPos, ShipTypeID) "
