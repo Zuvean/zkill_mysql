@@ -17,6 +17,7 @@ def retrieve():
     response = requests.get("https://redisq.zkillboard.com/listen.php?queueID=DataGod9674429039")
     data = response.json()
     data_killmail = data['package']
+    legit_check = requests.get("https://esi.evetech.net/latest/killmails/"+"/"+"/?datasource=tranquility")
     return data_killmail
     #if data_killmail == None:
         #time.sleep(10)
@@ -136,9 +137,9 @@ def sql_connect():
             'CorporationID' : victim_killmail.get('corporation_id'),
             'CharacterID' : victim_killmail.get('character_id'),
             'damage_taken' : victim_killmail.get('damage_taken'),
-            'xPos' : victim_killmail['position'].get('x'),
-            'yPos' : victim_killmail['position'].get('y'),
-            'zPos' : victim_killmail['position'].get('z'),
+            'xPos' : victim_killmail.get('position', {}).get('x'),
+            'yPos' : victim_killmail.get('position', {}).get('y'),
+            'zPos' : victim_killmail.get('position', {}).get('z'),
             'ShipTypeID' : victim_killmail.get('ship_type_id'),
         }
 
@@ -156,7 +157,7 @@ def sql_connect():
             'locationID' : zkb_killmail.get('locationID'),
             'hash' : zkb_killmail.get('hash'),
             'fittedValue'  : zkb_killmail.get('fittedValue'),
-            'totalValue' : zkb_killmail.get('totalValue'),
+            'totalValue' : zkb_killmail.get('totalValue'),``
             'points' : zkb_killmail.get('points'),
             'npc' : bit_convert(zkb_killmail.get('npc')),
             'solo' : bit_convert(zkb_killmail.get('solo')),
